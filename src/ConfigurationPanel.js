@@ -19,8 +19,13 @@ const Swatch = ({ className, active, onClick }) => (
 
 class ConfigurationPanel extends Component {
   render() {
-    const { onImageChange, onBackgroundColorChange, backgroundColor } =
-      this.props;
+    const {
+      squareIt,
+      onSquareIt,
+      onImageChange,
+      onBackgroundColorChange,
+      backgroundColor,
+    } = this.props;
 
     return (
       <div className={styles.wrapper}>
@@ -32,21 +37,28 @@ class ConfigurationPanel extends Component {
         </FormRow>
 
         <FormRow className={styles.formRow}>
-          <Label>Background</Label>
-          <div>
-            <Swatch
-              className={styles.black}
-              onClick={() => onBackgroundColorChange("black")}
-              active={backgroundColor === "black"}
-            />
-
-            <Swatch
-              className={styles.white}
-              onClick={() => onBackgroundColorChange("white")}
-              active={backgroundColor === "white"}
-            />
-          </div>
+          <Label>Square it</Label>
+          <input type="checkbox" checked={squareIt} onChange={onSquareIt} />
         </FormRow>
+
+        {squareIt && (
+          <FormRow className={styles.formRow}>
+            <Label>Background</Label>
+            <div>
+              <Swatch
+                className={styles.black}
+                onClick={() => onBackgroundColorChange("black")}
+                active={backgroundColor === "black"}
+              />
+
+              <Swatch
+                className={styles.white}
+                onClick={() => onBackgroundColorChange("white")}
+                active={backgroundColor === "white"}
+              />
+            </div>
+          </FormRow>
+        )}
 
         <FormRow className={styles.formRow}>
           <Label>Download</Label>

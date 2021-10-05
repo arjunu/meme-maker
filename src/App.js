@@ -9,6 +9,7 @@ class App extends Component {
 
     this.state = {
       backgroundColor: "black",
+      squareIt: false,
     };
 
     this.onImageSelect = this.onImageSelect.bind(this);
@@ -21,7 +22,7 @@ class App extends Component {
   componentDidMount() {
     this.canvas = document.getElementById("canvas");
     // noinspection JSSuspiciousNameCombination
-    this.canvas.width = window.innerHeight;
+    this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
 
     this.ctx = this.canvas.getContext("2d");
@@ -57,22 +58,26 @@ class App extends Component {
   }
 
   onImageLoad() {
-    if (this.img.width > this.img.height) {
-      this.canvas.width = this.img.width;
-      // noinspection JSSuspiciousNameCombination
-      this.canvas.height = this.img.width;
+    if (!this.img) {
+      console.warn("No image");
+      return;
+    }
+
+    if (this.state.squareIt) {
+      const side = Math.max(this.img.width, this.img.height);
+      this.canvas.width = side;
+      this.canvas.height = side;
     } else {
-      // noinspection JSSuspiciousNameCombination
-      this.canvas.width = this.img.height;
+      this.canvas.width = this.img.width;
       this.canvas.height = this.img.height;
     }
 
-    this.ctx.rect(0, 0, this.canvas.width, this.canvas.height);
     this.paintImage();
     // ctx.drawImage(img, img.width / 4, img.height / 4, img.width / 2, img.height / 2, 0, 0, canvas.width, canvas.height);
   }
 
   paintImage(backgroundColor = this.state.backgroundColor) {
+    this.ctx.rect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.fillStyle = backgroundColor;
     this.ctx.fill();
     this.ctx.drawImage(
@@ -100,7 +105,7 @@ class App extends Component {
               src="/android-chrome-192x192.png"
               alt=""
             />
-            <span className={styles.headerTitle}>Square It</span>
+            <span className={styles.headerTitle}>Meme Maker</span>
           </a>
         </header>
 
@@ -117,6 +122,12 @@ class App extends Component {
           </div>
 
           <ConfigurationPanel
+            squareIt={this.state.squareIt}
+            onSquareIt={() => {
+              this.setState({ squareIt: !this.state.squareIt }, () =>
+                this.onImageLoad()
+              );
+            }}
             onImageChange={this.onImageSelect}
             onBackgroundColorChange={this.onBackgroundColorChange}
             backgroundColor={this.state.backgroundColor}
