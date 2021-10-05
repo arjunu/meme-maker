@@ -1,0 +1,65 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  width: 100%;
+  height: 64px;
+  padding: 8px 40px;
+  display: inline-flex;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+  background: #000000;
+}
+
+.logoWrapper {
+  color: white;
+  text-decoration: none;
+}
+
+.logo {
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -5px;
+  margin-right: 15px;
+}
+
+.headerTitle {
+  font-size: 1.25rem;
+  line-height: 2rem;
+  font-weight: 500;
+  letter-spacing: 0.0125em;
+  text-transform: uppercase;
+}
+
+.main {
+  height: calc(100% - 64px);
+  position: relative;
+}
+
+.previewWrapper {
+  position: absolute;
+  left: 0;
+  right: 400px;
+  bottom: 0;
+  top: 0;
+  background: #e0e0e0;
+}
+
+@media (max-width: 639px) {
+  .previewWrapper {
+    right: 0;
+    bottom: 172px;
+  }
+}
+
+.preview {
+  height: 100%;
+  margin: 0 auto;
+  display: block;
+  object-fit: contain;
+  width: 100%;
+}
